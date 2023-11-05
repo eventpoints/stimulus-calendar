@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&family=Roboto&family=Ubuntu:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+
+._sc_backdrop{
+    background-color: rgba(0,0,0,0.25);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+._sc_calendar_container{
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    background-color: rgba(255,255,255,1);
+    position: fixed;
+    width: 90%;
+    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+._sc_header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+._sc_years{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding: 0;
+    margin: 0;
+}
+
+
+._sc_years::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+._sc_years::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+._sc_years::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+._sc_months{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+._sc_years, ._sc_months{
+    font-weight: 900;
+}
+
+
+._sc_days{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+._sc_days > ._sc_day {
+    flex-basis: calc(100% / 7);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+._sc_day{
+    padding: 30px;
+    text-align: center;
+}
+
+
+._sc_current_year, ._sc_current_month, ._sc_current_date{
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+._sc_selected_date{
+    background-color: #3d5afe;
+    border-radius: 4px;
+}
+
+
+
+._sc_day:hover{
+    background-color: #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+._sc_calendar_time_row{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+
+._sc_time_picker{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+
+._sc_hours{
+
+}
+
+._sc_minutes{
+
+}
+
+._sc_meridiems{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+
+._sc_minute, ._sc_hour, ._sc_meridiem, ._sc_year, ._sc_month{
+    padding: 10px;
+    text-align: center;
+}
+
+._sc_minute:hover, ._sc_hour:hover, ._sc_meridiem:hover, ._sc_year:hover, ._sc_month:hover{
+    background-color: #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
