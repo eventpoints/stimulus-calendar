@@ -1,5 +1,4 @@
 import {Controller} from '@hotwired/stimulus';
-import {Clock} from './Model/Clock.js';
 import {Calendar} from './Model/Calendar.js';
 import {DateTime} from 'luxon';
 
@@ -32,11 +31,10 @@ export default class extends Controller {
 
 
     async render() {
-        this.clock = new Clock();
-        this.calendar = new Calendar(this.clock);
-
-        if (this.dateInputTarget.getAttribute('value')) {
-            this.clock.selectedDate = DateTime.fromSQL(this.dateInputTarget.value)
+        this.calendar = new Calendar();
+        this.inputDate = this.dateInputTarget.getAttribute('value')
+        if (this.inputDate) {
+            this.calendar.selectedDate = DateTime.fromSQL(this.inputDate)
         }
 
 
@@ -46,7 +44,7 @@ export default class extends Controller {
         await this.renderHourOptions();
         await this.renderMinuteOptions();
 
-        if (this.clock.selectedDate) {
+        if (this.calendar.selectedDate) {
             await this.scrollVerticallyTo(this.selectedMinuteElement, this.minutesTarget);
             await this.scrollVerticallyTo(this.selectedHourElement, this.hoursTarget);
             await this.scrollHorizontallyTo(this.selectedMonthElement, this.monthsTarget);
@@ -64,12 +62,13 @@ export default class extends Controller {
     async setYear(event) {
         const year = parseInt(event.target.getAttribute('data-year'), 10);
 
-        this.calendar.clock.selectedDate = DateTime.fromObject({
-            year,
-            month: this.calendar.clock.currentDate.month,
-            day: this.calendar.clock.currentDate.day,
-            hour: this.calendar.clock.currentDate.hour,
-            minute: this.calendar.clock.currentDate.minute,
+        this.calendar.selectedDate = DateTime.fromObject({
+            year: year,
+            month: this.calendar.selectedDate.month,
+            day: this.calendar.selectedDate.day,
+            hour: this.calendar.selectedDate.hour,
+            minute: this.calendar.selectedDate.minute,
+            second: 0
         });
 
         await this.renderCalendarYears();
@@ -79,13 +78,16 @@ export default class extends Controller {
     async setMonth(event) {
         const month = parseInt(event.target.getAttribute('data-month'), 10);
 
-        this.calendar.clock.selectedDate = DateTime.fromObject({
-            year: this.calendar.clock.currentDate.year,
-            month,
-            day: this.calendar.clock.currentDate.day,
-            hour: this.calendar.clock.currentDate.hour,
-            minute: this.calendar.clock.currentDate.minute,
+        this.calendar.selectedDate = DateTime.fromObject({
+            year: this.calendar.selectedDate.year,
+            month: month,
+            day: this.calendar.selectedDate.day,
+            hour: this.calendar.selectedDate.hour,
+            minute: this.calendar.selectedDate.minute,
+            second: 0
         });
+
+
         await this.renderCalendarMonths();
         this.updateOutput();
     }
@@ -94,10 +96,14 @@ export default class extends Controller {
         const iso = event.target.getAttribute('data-day-iso');
         let date = DateTime.fromISO(iso)
 
-        this.calendar.clock.selectedDate = DateTime.fromObject({
+        this.calendar.selectedDate = DateTime.fromObject({
+            year: this.calendar.selectedDate.year,
+            month: this.calendar.selectedDate.month,
             day: date.day,
+            hour: this.calendar.selectedDate.hour,
+            minute: this.calendar.selectedDate.minute,
+            second: 0
         });
-
 
         event.target.classList.add('_sc_selected_date')
         const newDays = this.calendar.calculateDays();
@@ -108,12 +114,13 @@ export default class extends Controller {
     async setHour(event) {
         const selectedHour = event.target.getAttribute('data-hour');
 
-        this.calendar.clock.selectedDate = DateTime.fromObject({
-            year: this.calendar.clock.currentDate.year,
-            month: this.calendar.clock.currentDate.month,
-            day: this.calendar.clock.currentDate.day,
-            hour: parseInt(selectedHour, 10),
-            minute: this.calendar.clock.currentDate.minute,
+        this.calendar.selectedDate = DateTime.fromObject({
+            year: this.calendar.selectedDate.year,
+            month: this.calendar.selectedDate.month,
+            day: this.calendar.selectedDate.day,
+            hour: selectedHour,
+            minute: this.calendar.selectedDate.minute,
+            second: 0
         });
 
         await this.renderHourOptions();
@@ -124,12 +131,13 @@ export default class extends Controller {
     async setMinute(event) {
         const selectedMinute = event.target.getAttribute('data-minute');
 
-        this.calendar.clock.selectedDate = DateTime.fromObject({
-            year: this.calendar.clock.currentDate.year,
-            month: this.calendar.clock.currentDate.month,
-            day: this.calendar.clock.currentDate.day,
-            hour: this.calendar.clock.currentDate.hour,
-            minute: parseInt(selectedMinute, 10),
+        this.calendar.selectedDate = DateTime.fromObject({
+            year: this.calendar.selectedDate.year,
+            month: this.calendar.selectedDate.month,
+            day: this.calendar.selectedDate.day,
+            hour: this.calendar.selectedDate.hour,
+            minute: selectedMinute,
+            second: 0
         });
 
         await this.renderMinuteOptions();
@@ -138,7 +146,7 @@ export default class extends Controller {
 
 
     updateOutput() {
-        this.dateInputTarget.setAttribute('value', this.clock.selectedDate.toISO())
+        this.dateInputTarget.setAttribute('value', this.calendar.selectedDate.toISO())
     }
 
     async renderCalendarMonths() {
@@ -160,7 +168,7 @@ export default class extends Controller {
             }
 
 
-            if (this.clock.selectedDate instanceof DateTime && this.clock.selectedDate.month === month.monthNumber) {
+            if (this.calendar.selectedDate instanceof DateTime && this.calendar.selectedDate.month === month.monthNumber) {
                 this.selectedMonthElement = monthElement
                 monthElement.classList.add('_sc_selected_month');
             }
@@ -182,7 +190,7 @@ export default class extends Controller {
                 yearElement.classList.add('_sc_current_year');
             }
 
-            if (this.clock.selectedDate instanceof DateTime && this.clock.selectedDate.year === year.year) {
+            if (this.calendar.selectedDate instanceof DateTime && this.calendar.selectedDate.year === year.year) {
                 this.selectedYearElement = yearElement;
                 yearElement.classList.add('_sc_selected_year');
             }
@@ -210,11 +218,11 @@ export default class extends Controller {
             dayElement.classList.add('_sc_day');
             dayElement.textContent = day.day;
 
-            if (this.clock.currentDate.day === DateTime.fromISO(day.iso).day) {
+            if (this.calendar.currentDate.day === DateTime.fromISO(day.iso).day) {
                 dayElement.classList.add('_sc_current_date');
             }
 
-            if (this.clock.selectedDate instanceof DateTime && this.clock.selectedDate.day === DateTime.fromISO(day.iso).day) {
+            if (this.calendar.selectedDate instanceof DateTime && this.calendar.selectedDate.day === DateTime.fromISO(day.iso).day) {
                 dayElement.classList.add('_sc_selected_date');
             }
 
@@ -234,12 +242,12 @@ export default class extends Controller {
             }
             hourOptionElement.setAttribute('data-hour', hour);
 
-            if (this.clock.currentDate.hour === hour) {
+            if (this.calendar.currentDate.hour === hour) {
                 this.currentHourElement = hourOptionElement
                 hourOptionElement.classList.add('_sc_current_hour');
             }
 
-            if (this.clock.selectedDate instanceof DateTime && this.clock.selectedDate.hour === hour) {
+            if (this.calendar.selectedDate instanceof DateTime && this.calendar.selectedDate.hour === hour) {
                 this.selectedHourElement = hourOptionElement
                 hourOptionElement.classList.add('_sc_selected_hour');
             }
@@ -262,12 +270,12 @@ export default class extends Controller {
             minuteOptionElement.setAttribute('data-minute', minute);
             minuteOptionElement.textContent = minute;
 
-            if (this.clock.currentDate.minute === minute) {
+            if (this.calendar.currentDate.minute === minute) {
                 this.currentMinuteElement = minuteOptionElement
                 minuteOptionElement.classList.add('_sc_current_minute');
             }
 
-            if (this.clock.selectedDate instanceof DateTime && this.clock.selectedDate.minute === minute) {
+            if (this.calendar.selectedDate instanceof DateTime && this.calendar.selectedDate.minute === minute) {
                 this.selectedMinuteElement = minuteOptionElement
                 minuteOptionElement.classList.add('_sc_selected_minute');
             }
@@ -286,8 +294,6 @@ export default class extends Controller {
     close() {
         this.backdropTarget.style.display = 'none';
         this.calendarTarget.style.display = 'none';
-
-        this.clock = null
         this.calendar = null
         this.yearsTarget.innerHTML = '';
         this.monthsTarget.innerHTML = '';

@@ -1,9 +1,11 @@
 import { DateTime } from 'luxon';
 
 export class Calendar {
-    constructor(clock) {
-        this.clock = clock;
-        this.date = null;
+
+
+    constructor() {
+        this.currentDate = DateTime.local();
+        this.selectedDate = null
     }
 
     years() {
@@ -44,7 +46,7 @@ export class Calendar {
     days() {
         let selectedDate = null
 
-        const date = DateTime.fromISO(this.clock.currentDate);
+        const date = DateTime.fromISO(this.currentDate);
 
         const firstDay = date.startOf('month');
         const lastDay = date.endOf('month');
@@ -65,14 +67,14 @@ export class Calendar {
 
     calculateDays() {
         const selectedDate = DateTime.fromObject({
-            year: this.clock.selectedDate.year,
-            month: this.clock.selectedDate.month,
-            day: this.clock.selectedDate.day,
-            hour: this.clock.selectedDate.hour,
-            minute: this.clock.selectedDate.minute
+            year: this.selectedDate.year,
+            month: this.selectedDate.month,
+            day: this.selectedDate.day,
+            hour: this.selectedDate.hour,
+            minute: this.selectedDate.minute
         });
-        this.clock.selectedDate = selectedDate;
-        this.clock.currentDate = selectedDate;
+        this.selectedDate = selectedDate;
+        this.currentDate = selectedDate;
 
         const newDays = this.days();
         return newDays;
