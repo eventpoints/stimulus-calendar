@@ -7,6 +7,7 @@ body{
 
 
 ._sc_backdrop{
+    display: none;
     background-color: rgba(0,0,0,0.25);
     width: 100%;
     height: 100%;
@@ -19,6 +20,13 @@ body{
 }
 
 ._sc_calendar_container{
+
+}
+
+._sc_calendar{
+    display: none;
+    border-radius: 4px;
+    overflow: hidden;
     -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
     box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
     left: 0;
@@ -26,60 +34,44 @@ body{
     margin:0 auto;
     background-color: rgba(255,255,255,1);
     position: fixed;
-    width: 90%;
+    width: 50vh;
     font-family: 'Noto Sans', sans-serif;
     font-family: 'Roboto', sans-serif;
     font-family: 'Ubuntu', sans-serif;
 }
 
-
-._sc_header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-._sc_years{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    overflow-y: hidden;
-    overflow-x: scroll;
-    padding: 0;
-    margin: 0;
-}
-
-
-._sc_years::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-}
-
-._sc_years::-webkit-scrollbar-thumb {
-    background-color: transparent;
-}
-
-._sc_years::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-._sc_months{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+._sc_date_container{
+    overflow-x: auto;
 }
 
 ._sc_years, ._sc_months{
     font-weight: 900;
+    display: flex;
+    justify-content: start;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+
+
+._sc_years::-webkit-scrollbar, ._sc_months::-webkit-scrollbar, ._sc_hours::-webkit-scrollbar, ._sc_minutes::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+._sc_years::-webkit-scrollbar-thumb, ._sc_months::-webkit-scrollbar-thumb, ._sc_hours::-webkit-scrollbar-thumb, ._sc_minutes::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+._sc_years::-webkit-scrollbar-track, ._sc_months::-webkit-scrollbar-track, ._sc_hours::-webkit-scrollbar-track, ._sc_minutes::-webkit-scrollbar-track  {
+    background: transparent;
 }
 
 
 ._sc_days{
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -92,25 +84,43 @@ body{
 
 
 ._sc_day{
-    padding: 30px;
+    padding: 10px;
     text-align: center;
 }
 
 
+._sc_current_hour, ._sc_selected_hour{
+    border-radius: 4px 0 0 4px;
+}
+
+._sc_current_minute, ._sc_selected_minute{
+    border-radius: 0 4px 4px 0;
+}
+
+._sc_current_hour, ._sc_current_minute{
+    background-color: rgba(0,0,0,0.20);
+}
+
+
 ._sc_current_year, ._sc_current_month, ._sc_current_date{
-    background-color: #eee;
+    background-color: rgba(0,0,0,0.05);
     border-radius: 4px;
 }
 
-._sc_selected_date{
+._sc_selected_minute, ._sc_selected_hour{
+    background-color: #333;
+    color: rgba(255,255,255,0.75);
+}
+
+._sc_selected_year,  ._sc_selected_month,  ._sc_selected_date{
     background-color: #3d5afe;
+    color: rgba(255,255,255,1);
     border-radius: 4px;
 }
-
 
 
 ._sc_day:hover{
-    background-color: #ccc;
+    background-color: rgba(0,0,0,0.25);
     border-radius: 4px;
     cursor: pointer;
 }
@@ -124,22 +134,24 @@ body{
 
 ._sc_time_picker{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: start;
+    background-color: #536dfe;
+    color: #fff;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
 
 
-._sc_hours{
-
-}
-
-._sc_minutes{
-
+._sc_hours, ._sc_minutes{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 50vh;
 }
 
 ._sc_meridiems{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: start;
 }
 
@@ -149,8 +161,22 @@ body{
     text-align: center;
 }
 
-._sc_minute:hover, ._sc_hour:hover, ._sc_meridiem:hover, ._sc_year:hover, ._sc_month:hover{
-    background-color: #ccc;
+._sc_hour:hover{
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 4px 0 0 4px;
+    cursor: pointer;
+    color: rgba(0,0,0,0.7);
+}
+
+._sc_minute:hover{
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    color: rgba(0,0,0,0.7);
+}
+
+._sc_year:hover, ._sc_month:hover{
+    background-color: rgba(0,0,0,0.20);
     border-radius: 4px;
     cursor: pointer;
 }

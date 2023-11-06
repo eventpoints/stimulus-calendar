@@ -1,11 +1,12 @@
 {
-  "name": "stimulus-clock",
-  "version": "1.0.1",
+  "name": "stimulus-calendar",
+  "version": "1.0.4",
   "description": "A Stimulus controller to allow date and time input.",
   "keywords": [
     "stimulus",
     "stimulusjs",
     "stimulus controller",
+    "calendar",
     "clock",
     "datetime"
   ],
@@ -38,7 +39,7 @@
     "@hotwired/stimulus": "^3.1.0"
   },
   "dependencies": {
-    "moment": "^2.29.4",
+    "luxon": "^3.4.3",
     "stimulus-use": "^0.51.1"
   }
 }

@@ -1,9 +1,8 @@
-// clock.js
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 export class Clock {
     constructor() {
-        this.currentDate = moment()
-        this.selectedDate = moment()
+        this.currentDate = DateTime.local();
+        this.selectedDate = null
     }
 }

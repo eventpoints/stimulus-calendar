@@ -1,48 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="description" content="A Stimulus controller for a datetime range select ."/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="src/default.css"/>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="A Stimulus controller for a datetime range select ."/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="src/default.css"/>
 
-    <title>Stimulus Calendar</title>
+        <title>Stimulus Calendar</title>
 
-    <script type="module" defer>
-        import {Application} from '@hotwired/stimulus'
-        import Calendar from './src/calendar_controller'
+        <script type="module" defer>
+            import {Application} from '@hotwired/stimulus'
+            import Calendar from './src/calendar_controller'
 
-        const application = Application.start()
-        application.register('calendar', Calendar)
-    </script>
-</head>
+            const app = Application.start()
+            app.register('calendar', Calendar)
+        </script>
+    </head>
 
-<body>
-<!-- This example requires Tailwind CSS v2.0+ -->
-<div data-controller="calendar">
-    <div data-calendar-target="output"></div>
-    <button data-action="click->calendar#open">Open Calendar</button>
-    <div class="_sc_backdrop" data-calendar-target="backdrop" data-action="click->calendar#close"></div>
-    <div class="_sc_calendar_container" data-calendar-target="container">
-        <div class="calendar" data-calendar-target="calendar">
-            <div class="_sc_header" data-calendar-target="header">
-                <div class="_sc_years" data-calendar-target="years"></div>
-                <div  class="_sc_months"  data-calendar-target="months"></div>
-            </div>
-            <div class="_sc_calendar_time_row">
-                <div class="_sc_time_picker_container">
-                    <div class="_sc_meridiems" data-calendar-target="meridiem"></div>
-                    <div class="_sc_time_picker">
-                        <div class="_sc_hours" data-calendar-target="hours"></div>
-                        <div class="_sc_minutes" data-calendar-target="minutes"></div>
-                    </div>
-                </div>
-                <div class="_sc_days" data-calendar-target="days"></div>
-            </div>
+    <body>
+        <div data-controller="calendar" data-calendar-is-disabled-value="true">
+            <input type="datetime" data-calendar-target="dateInput" value="1992-10-15 21:00"/>
         </div>
-    </div>
-</div>
-
-
-</body>
+    </body>
 </html>
