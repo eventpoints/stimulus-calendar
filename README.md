@@ -1,12 +1,10 @@
 # Stimulus Calendar
-## Date and time input stimulus controller 
-
-> ⚠️ Package under development don't use yet. ⚠️
+Date and time input stimulus controller.
 
 ### Installation
 
-`yarn add stimulus-clock`
-`npm install stimulus-clock`
+`yarn add stimulus-calendar`
+`npm install stimulus-calendar`
 
 
 ### Usage
