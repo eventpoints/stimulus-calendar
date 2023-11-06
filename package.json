@@ -1,6 +1,6 @@
 {
   "name": "stimulus-calendar",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A Stimulus controller to allow date and time input.",
   "keywords": [
     "stimulus",
@@ -36,7 +36,11 @@
     "@hotwired/stimulus": "^3.1.0"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "css-loader": "^6.8.1",
     "luxon": "^3.4.3",
-    "stimulus-use": "^0.51.1"
+    "postcss-loader": "^7.3.3",
+    "stimulus-use": "^0.51.1",
+    "style-loader": "^3.3.3"
   }
 }
