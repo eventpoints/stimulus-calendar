@@ -1,5 +1,5 @@
 import {Controller} from '@hotwired/stimulus';
-import {Calendar} from './Model/Calendar.js';
+import {Calendar} from './Calendar.js';
 import {DateTime} from 'luxon';
 
 export default class extends Controller {

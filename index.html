@@ -4,13 +4,13 @@
         <meta charset="UTF-8"/>
         <meta name="description" content="A Stimulus controller for a datetime range select ."/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="src/default.css"/>
+        <link rel="stylesheet" href="dist/default.css"/>
 
         <title>Stimulus Calendar</title>
 
         <script type="module" defer>
             import {Application} from '@hotwired/stimulus'
-            import Calendar from './src/calendar_controller'
+            import Calendar from './dist/calendar_controller'
 
             const app = Application.start()
             app.register('calendar', Calendar)
