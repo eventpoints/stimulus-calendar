@@ -1,6 +1,6 @@
 {
   "name": "stimulus-calendar",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A Stimulus controller to allow date and time input.",
   "keywords": [
     "stimulus",
@@ -16,13 +16,7 @@
   "main": "dist/stimulus-popover.umd.js",
   "module": "dist/stimulus-popover.es.js",
   "scripts": {
-    "format": "prettier-standard  '**/*.{ts,css,html}' --format",
-    "lint": "prettier-standard  '**/*.{ts,css,html}' --lint",
-    "dev": "vite",
-    "prod": "vite build --mode netlify",
-    "build": "tsc --noEmit && vite build",
-    "version": "yarn build",
-    "np": "np --no-2fa --no-test"
+    "build": "webpack --config webpack.config.js"
   },
   "devDependencies": {
     "@babel/core": "7.18.10",
@@ -33,7 +27,10 @@
     "np": "^7.6.2",
     "prettier-standard": "16.4.1",
     "typescript": "^4.7.4",
-    "vite": "^2.3.6"
+    "vite": "^2.3.6",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "peerDependencies": {
     "@hotwired/stimulus": "^3.1.0"
