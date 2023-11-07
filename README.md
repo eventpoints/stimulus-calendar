@@ -1,6 +1,9 @@
 # Stimulus Calendar
 Date and time input stimulus controller.
 
+### Demo
+[Stimulus Calendar Demo](https://gregarious-treacle-078ba8.netlify.app/)
+
 ### Installation
 
 `yarn add stimulus-calendar`
