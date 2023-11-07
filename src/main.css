@@ -1,0 +1,448 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&family=Roboto&family=Ubuntu:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+
+._sc_backdrop{
+    z-index: 250;
+    display: none;
+    background-color: rgba(0,0,0,0.25);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+
+
+
+._sc_years::-webkit-scrollbar, ._sc_months::-webkit-scrollbar, ._sc_hours::-webkit-scrollbar, ._sc_minutes::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+._sc_years::-webkit-scrollbar-thumb, ._sc_months::-webkit-scrollbar-thumb, ._sc_hours::-webkit-scrollbar-thumb, ._sc_minutes::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+._sc_years::-webkit-scrollbar-track, ._sc_months::-webkit-scrollbar-track, ._sc_hours::-webkit-scrollbar-track, ._sc_minutes::-webkit-scrollbar-track  {
+    background: transparent;
+}
+
+
+/*default theme*/
+
+
+.default_sc_theme ._sc_calendar{
+    z-index: 500;
+    display: none;
+    border-radius: 4px;
+    overflow: hidden;
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    top:20px;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    background-color: rgba(255,255,255,1);
+    position: fixed;
+    width: 50vh;
+    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.default_sc_theme ._sc_date_container{
+    overflow-x: auto;
+}
+
+.default_sc_theme ._sc_years, .default_sc_theme ._sc_months{
+    font-weight: 900;
+    display: flex;
+    justify-content: start;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+
+.default_sc_theme ._sc_days{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.default_sc_theme ._sc_days > .default_sc_theme ._sc_day {
+    flex-basis: calc(100% / 7);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+.default_sc_theme ._sc_day{
+    padding: 10px;
+    text-align: center;
+}
+
+
+.default_sc_theme ._sc_current_hour, .default_sc_theme ._sc_selected_hour{
+    border-radius: 4px 0 0 4px;
+}
+
+.default_sc_theme ._sc_current_minute, .default_sc_theme ._sc_selected_minute{
+    border-radius: 0 4px 4px 0;
+}
+
+.default_sc_theme ._sc_current_hour, .default_sc_theme ._sc_current_minute{
+    background-color: rgba(0,0,0,0.20);
+}
+
+
+.default_sc_theme ._sc_current_year, .default_sc_theme ._sc_current_month, .default_sc_theme ._sc_current_date{
+    background-color: rgba(0,0,0,0.05);
+    border-radius: 4px;
+}
+
+.default_sc_theme ._sc_selected_minute, .default_sc_theme ._sc_selected_hour{
+    background-color: #333;
+    color: rgba(255,255,255,0.75);
+}
+
+.default_sc_theme ._sc_selected_year,  .default_sc_theme ._sc_selected_month,  .default_sc_theme ._sc_selected_date{
+    background-color: #3d5afe;
+    color: rgba(255,255,255,1);
+    border-radius: 4px;
+}
+
+
+.default_sc_theme ._sc_day:hover{
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.default_sc_theme ._sc_calendar_time_row{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+
+.default_sc_theme ._sc_time_picker{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    background-color: #536dfe;
+    color: #fff;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+
+.default_sc_theme ._sc_hours, .default_sc_theme ._sc_minutes{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 50vh;
+}
+
+.default_sc_theme ._sc_meridiems{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+
+.default_sc_theme ._sc_minute, .default_sc_theme ._sc_hour, .default_sc_theme ._sc_meridiem, .default_sc_theme ._sc_year, .default_sc_theme ._sc_month{
+    padding: 10px;
+    text-align: center;
+}
+
+.default_sc_theme ._sc_hour:hover{
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 4px 0 0 4px;
+    cursor: pointer;
+    color: rgba(0,0,0,0.7);
+}
+
+.default_sc_theme ._sc_minute:hover{
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    color: rgba(0,0,0,0.7);
+}
+
+.default_sc_theme ._sc_year:hover, .default_sc_theme ._sc_month:hover{
+    background-color: rgba(0,0,0,0.20);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+/*light theme*/
+
+.light_sc_theme ._sc_calendar{
+    z-index: 500;
+    display: none;
+    border-radius: 4px;
+    overflow: hidden;
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    top:20px;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    background-color: rgba(255,255,255,0.75);
+    position: fixed;
+    width: 50vh;
+    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.light_sc_theme ._sc_date_container{
+    height: 100%;
+    overflow-x: auto;
+}
+
+.light_sc_theme ._sc_years, .light_sc_theme ._sc_months{
+    font-weight: 900;
+    display: flex;
+    justify-content: start;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+
+.light_sc_theme ._sc_days{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.light_sc_theme ._sc_days >  .light_sc_theme ._sc_day {
+    flex-basis: calc(100% / 7);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+.light_sc_theme ._sc_day{
+    color: rgba(0,0,0, 1);
+    padding: 10px;
+    text-align: center;
+}
+
+.light_sc_theme ._sc_day:hover{
+    background-color: rgba(0,0,0,.05);
+    color: rgba(0,0,0, 1);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.light_sc_theme ._sc_current_year, .light_sc_theme ._sc_current_month, .light_sc_theme ._sc_current_date{
+    background-color: rgba(0,0,0,.02);
+    border-radius: 4px;
+}
+
+
+.light_sc_theme ._sc_selected_year,  .light_sc_theme ._sc_selected_month,  .light_sc_theme ._sc_selected_date, .light_sc_theme ._sc_selected_minute, .light_sc_theme ._sc_selected_hour{
+    background-color: rgba(0,0,0,.25);
+    color: rgba(0,0,0, 1);
+    border-radius: 4px;
+}
+
+.light_sc_theme ._sc_calendar_time_row{
+    background-color: rgba(255,255,255,0.65);
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+
+.light_sc_theme ._sc_time_picker{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    background-color: rgba(0,0,0,.05) !important;
+    color: rgba(0,0,0, 1);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+
+.light_sc_theme ._sc_hours, .light_sc_theme ._sc_minutes{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 50vh;
+}
+
+
+.light_sc_theme ._sc_minute, .light_sc_theme ._sc_hour, .light_sc_theme ._sc_meridiem, .light_sc_theme ._sc_year, .light_sc_theme ._sc_month{
+    color: rgba(0,0,0, 1);
+    border: 2px solid transparent;
+    padding: 10px;
+    text-align: center;
+}
+
+.light_sc_theme ._sc_hour:hover{
+    background-color: rgba(0,0,0,.05);
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(0,0,0, 1);
+}
+
+.light_sc_theme ._sc_minute:hover{
+    background-color: rgba(0,0,0,.05);
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(0,0,0, 1);
+}
+
+.light_sc_theme ._sc_year:hover, .light_sc_theme ._sc_month:hover{
+    background-color: rgba(0,0,0,.05);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+/*dark theme*/
+
+
+
+.dark_sc_theme ._sc_calendar{
+    z-index: 500;
+    display: none;
+    border-radius: 4px;
+    overflow: hidden;
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    top:20px;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    background-color: #3333;
+    position: fixed;
+    width: 50vh;
+    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.dark_sc_theme ._sc_date_container{
+    height: 100%;
+    overflow-x: auto;
+}
+
+.dark_sc_theme ._sc_years, .dark_sc_theme ._sc_months{
+    font-weight: 900;
+    display: flex;
+    justify-content: start;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+
+
+.dark_sc_theme ._sc_days{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.dark_sc_theme ._sc_days > .dark_sc_theme ._sc_day {
+    flex-basis: calc(100% / 7);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+.dark_sc_theme ._sc_day{
+    color: rgba(255,255,255,1);;
+    padding: 10px;
+    text-align: center;
+}
+
+.dark_sc_theme ._sc_day:hover{
+    background-color: rgba(0,0,0,0.75);
+    color: rgba(255,255,255,1);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.dark_sc_theme ._sc_current_year, .dark_sc_theme ._sc_current_month, .dark_sc_theme ._sc_current_date{
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 4px;
+}
+
+
+.dark_sc_theme ._sc_selected_year,  .dark_sc_theme ._sc_selected_month,  .dark_sc_theme ._sc_selected_date, .dark_sc_theme ._sc_selected_minute, .dark_sc_theme ._sc_selected_hour{
+    background-color: rgba(0,0,0,0.65);
+    color: rgba(255,255,255,1);;
+    border-radius: 4px;
+}
+
+.dark_sc_theme ._sc_calendar_time_row{
+    background-color: rgba(0,0,0,0.45);
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+
+.dark_sc_theme ._sc_time_picker{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    background-color: rgba(0,0,0,0.25) !important;
+    color: rgba(255,255,255, 1);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+
+.dark_sc_theme ._sc_hours, .dark_sc_theme ._sc_minutes{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 50vh;
+}
+
+
+.dark_sc_theme ._sc_minute, .dark_sc_theme ._sc_hour, .dark_sc_theme ._sc_meridiem, .dark_sc_theme ._sc_year, .dark_sc_theme ._sc_month{
+    color: rgba(255,255,255,1);
+    border: 2px solid transparent;
+    padding: 10px;
+    text-align: center;
+}
+
+.dark_sc_theme ._sc_hour:hover{
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(255,255,255,1);
+}
+
+.dark_sc_theme ._sc_minute:hover{
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(255,255,255,1);
+}
+
+.dark_sc_theme ._sc_year:hover, .dark_sc_theme ._sc_month:hover{
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 4px;
+    cursor: pointer;
+}

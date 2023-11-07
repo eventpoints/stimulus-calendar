@@ -2,6 +2,7 @@ import {Controller} from '@hotwired/stimulus';
 import {Calendar} from './Calendar.js';
 import {DateTime} from 'luxon';
 
+import './main.css'
 export default class extends Controller {
     static targets = [
         'dateInput',
@@ -28,24 +29,13 @@ export default class extends Controller {
 
     initialize() {
         super.initialize();
-        console.log(this.themeValue)
-        const themes = ['light', 'default', 'dark']
-        if(themes.includes(this.themeValue)){
-            switch (this.themeValue) {
-                case "light":
-                    import('./light.css');
-                    break
-                case "dark":
-                    import('./dark.css');
-                    break
-                case "default":
-                    import('./default.css');
-                    break
-                default:
-                    import('./default.css');
-            }
+        const themes = ['light', 'default', 'dark'];
+        if (themes.includes(this.themeValue)) {
+            const themeClass = `${this.themeValue}_sc_theme`;
+            this.element.classList.add(themeClass);
         }
     }
+
 
     connect() {
         this.dateInputTarget.setAttribute('data-action', 'focus->calendar#open')
