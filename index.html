@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="description" content="A Stimulus controller for a datetime range select ."/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="dist/default.css"/>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="A Stimulus controller for a datetime range select ."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="dist/default.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <title>Stimulus Calendar</title>
 
-        <title>Stimulus Calendar</title>
+    <script type="module" defer>
+        import {Application} from '@hotwired/stimulus'
+        import Calendar from './src/stimulus-calendar.js'
 
-        <script type="module" defer>
-            import {Application} from '@hotwired/stimulus'
-            import Calendar from './src/stimulus-calendar.js'
+        const app = Application.start()
+        app.register('calendar', Calendar)
+    </script>
+</head>
 
-            const app = Application.start()
-            app.register('calendar', Calendar)
-        </script>
-    </head>
-
-    <body>
-        <div data-controller="calendar">
-            <input type="text" data-calendar-target="dateInput"/>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <h1 class="mt-5">Stimulus Calendar</h1>
+            <div class="form-floating mb-3" data-controller="calendar">
+                <input type="text" class="form-control" id="date-time" placeholder="date"
+                       data-calendar-target="dateInput">
+                <label for="date-time">Date & Time</label>
+            </div>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>
