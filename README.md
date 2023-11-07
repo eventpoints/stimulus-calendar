@@ -20,7 +20,7 @@ app.register('calendar', Calendar)
 
 ```html
 <div data-controller="calendar" data-calendar-is-disabled-value="false">
-    <input type="datetime" data-calendar-target="dateInput" value="{{ post.date|format_datetime() }}"/>
+    <input type="text" data-calendar-target="dateInput" value="{{ post.date|format_datetime() }}"/>
 </div>
 ```
 
