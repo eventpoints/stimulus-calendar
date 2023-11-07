@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100&family=Roboto&family=Ubuntu:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+
+._sc_backdrop{
+    z-index: 250;
+    display: none;
+    background-color: rgba(0,0,0,0.15);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+
+._sc_calendar{
+    z-index: 500;
+    display: none;
+    border-radius: 4px;
+    overflow: hidden;
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    top:20px;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    background-color: rgba(255,255,255,0.75);
+    position: fixed;
+    width: 50vh;
+    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+._sc_date_container{
+    height: 100%;
+    overflow-x: auto;
+}
+
+._sc_years, ._sc_months{
+    font-weight: 900;
+    display: flex;
+    justify-content: start;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+
+
+._sc_years::-webkit-scrollbar, ._sc_months::-webkit-scrollbar, ._sc_hours::-webkit-scrollbar, ._sc_minutes::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+._sc_years::-webkit-scrollbar-thumb, ._sc_months::-webkit-scrollbar-thumb, ._sc_hours::-webkit-scrollbar-thumb, ._sc_minutes::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+._sc_years::-webkit-scrollbar-track, ._sc_months::-webkit-scrollbar-track, ._sc_hours::-webkit-scrollbar-track, ._sc_minutes::-webkit-scrollbar-track  {
+    background: transparent;
+}
+
+
+._sc_days{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+._sc_days > ._sc_day {
+    flex-basis: calc(100% / 7);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+._sc_day{
+    color: rgba(0,0,0, 1);
+    padding: 10px;
+    text-align: center;
+}
+
+._sc_day:hover{
+    background-color: rgba(0,0,0,.05);
+    color: rgba(0,0,0, 1);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+._sc_current_year, ._sc_current_month, ._sc_current_date{
+    background-color: rgba(0,0,0,.02);
+    border-radius: 4px;
+}
+
+
+._sc_selected_year,  ._sc_selected_month,  ._sc_selected_date, ._sc_selected_minute, ._sc_selected_hour{
+    background-color: rgba(0,0,0,.25);
+    color: rgba(0,0,0, 1);
+    border-radius: 4px;
+}
+
+._sc_calendar_time_row{
+    background-color: rgba(255,255,255,0.65);
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+
+._sc_time_picker{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    background-color: rgba(0,0,0,.05) !important;
+    color: rgba(0,0,0, 1);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+
+._sc_hours, ._sc_minutes{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 50vh;
+}
+
+
+._sc_minute, ._sc_hour, ._sc_meridiem, ._sc_year, ._sc_month{
+    color: rgba(0,0,0, 1);
+    border: 2px solid transparent;
+    padding: 10px;
+    text-align: center;
+}
+
+._sc_hour:hover{
+    background-color: rgba(0,0,0,.05);
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(0,0,0, 1);
+}
+
+._sc_minute:hover{
+    background-color: rgba(0,0,0,.05);
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(0,0,0, 1);
+}
+
+._sc_year:hover, ._sc_month:hover{
+    background-color: rgba(0,0,0,.05);
+    border-radius: 4px;
+    cursor: pointer;
+}

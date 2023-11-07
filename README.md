@@ -30,4 +30,10 @@ app.register('calendar', Calendar)
 
 ### Config
 
-`data-calendar-is-disabled-value="true"` - disables the input to select a year, month, day, hour and minute.
+- `data-calendar-is-disabled-value="true"` - disables the input to select a year, month, day, hour and minute.
+
+### Themes
+
+- `data-calendar-theme-value="dark"`
+- `data-calendar-theme-value="light"`
+- `data-calendar-theme-value="default"` (crazy, but this one is default)

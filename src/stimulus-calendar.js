@@ -2,8 +2,6 @@ import {Controller} from '@hotwired/stimulus';
 import {Calendar} from './Calendar.js';
 import {DateTime} from 'luxon';
 
-import './default.css';
-
 export default class extends Controller {
     static targets = [
         'dateInput',
@@ -21,6 +19,31 @@ export default class extends Controller {
         isDisabled: {
             type: Boolean,
             default: false
+        },
+        theme: {
+            type: String,
+            default: 'default'
+        },
+    }
+
+    initialize() {
+        super.initialize();
+        console.log(this.themeValue)
+        const themes = ['light', 'default', 'dark']
+        if(themes.includes(this.themeValue)){
+            switch (this.themeValue) {
+                case "light":
+                    import('./light.css');
+                    break
+                case "dark":
+                    import('./dark.css');
+                    break
+                case "default":
+                    import('./default.css');
+                    break
+                default:
+                    import('./default.css');
+            }
         }
     }
 
@@ -80,6 +103,7 @@ export default class extends Controller {
         });
 
         await this.renderCalendarYears();
+        await this.renderCalendarDays();
         this.updateOutput();
     }
 
@@ -104,6 +128,7 @@ export default class extends Controller {
 
 
         await this.renderCalendarMonths();
+        await this.renderCalendarDays();
         this.updateOutput();
     }
 
