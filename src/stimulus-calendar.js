@@ -2,6 +2,8 @@ import {Controller} from '@hotwired/stimulus';
 import {Calendar} from './Calendar.js';
 import {DateTime} from 'luxon';
 
+import './default.css';
+
 export default class extends Controller {
     static targets = [
         'dateInput',
@@ -60,7 +62,13 @@ export default class extends Controller {
 
 
     async setYear(event) {
+
+        if(!this.calendar.selectedDate){
+            this.calendar.selectedDate = DateTime.local();
+        }
+
         const year = parseInt(event.target.getAttribute('data-year'), 10);
+        this.selectedYearElement = event.target;
 
         this.calendar.selectedDate = DateTime.fromObject({
             year: year,
@@ -76,7 +84,14 @@ export default class extends Controller {
     }
 
     async setMonth(event) {
+
+        if(!this.calendar.selectedDate){
+            this.calendar.selectedDate = DateTime.local();
+        }
+
         const month = parseInt(event.target.getAttribute('data-month'), 10);
+        this.selectedMonthElement = event.target;
+
 
         this.calendar.selectedDate = DateTime.fromObject({
             year: this.calendar.selectedDate.year,
@@ -93,6 +108,11 @@ export default class extends Controller {
     }
 
     async setDay(event) {
+
+        if(!this.calendar.selectedDate){
+            this.calendar.selectedDate = DateTime.local();
+        }
+
         const iso = event.target.getAttribute('data-day-iso');
         let date = DateTime.fromISO(iso)
 
@@ -112,7 +132,14 @@ export default class extends Controller {
     }
 
     async setHour(event) {
+
+        if(!this.calendar.selectedDate){
+            this.calendar.selectedDate = DateTime.local();
+        }
+
         const selectedHour = event.target.getAttribute('data-hour');
+        this.selectedHourElement = event.target;
+
 
         this.calendar.selectedDate = DateTime.fromObject({
             year: this.calendar.selectedDate.year,
@@ -129,7 +156,13 @@ export default class extends Controller {
     }
 
     async setMinute(event) {
+
+        if(!this.calendar.selectedDate){
+            this.calendar.selectedDate = DateTime.local();
+        }
+
         const selectedMinute = event.target.getAttribute('data-minute');
+        this.selectedMinuteElement = event.target;
 
         this.calendar.selectedDate = DateTime.fromObject({
             year: this.calendar.selectedDate.year,
@@ -146,7 +179,7 @@ export default class extends Controller {
 
 
     updateOutput() {
-        this.dateInputTarget.setAttribute('value', this.calendar.selectedDate.toISO())
+        this.dateInputTarget.setAttribute('value', this.calendar.selectedDate.toFormat('yyyy-MM-dd HH:mm'))
     }
 
     async renderCalendarMonths() {
@@ -285,16 +318,33 @@ export default class extends Controller {
 
     }
 
-    open() {
+    async open() {
         this.backdropTarget.style.display = 'block';
         this.calendarTarget.style.display = 'block';
-        this.render();
+        await this.render();
+
+        if(this.calendar.selectedDate) {
+            await this.scrollVerticallyTo(this.selectedMinuteElement, this.minutesTarget);
+            await this.scrollVerticallyTo(this.selectedHourElement, this.hoursTarget);
+            await this.scrollHorizontallyTo(this.selectedMonthElement, this.monthsTarget);
+            await this.scrollHorizontallyTo(this.selectedYearElement, this.yearsTarget);
+        } else {
+            await this.scrollVerticallyTo(this.currentMinuteElement, this.minutesTarget);
+            await this.scrollVerticallyTo(this.currentHourElement, this.hoursTarget);
+            await this.scrollHorizontallyTo(this.currentMonthElement, this.monthsTarget);
+            await this.scrollHorizontallyTo(this.currentYearElement, this.yearsTarget);
+        }
     }
 
     close() {
         this.backdropTarget.style.display = 'none';
         this.calendarTarget.style.display = 'none';
-        this.calendar = null
+
+        this.currentYearElement = null;
+        this.currentMonthElement = null;
+        this.currentHourElement = null;
+        this.currentMinuteElement = null;
+
         this.yearsTarget.innerHTML = '';
         this.monthsTarget.innerHTML = '';
         this.daysTarget.innerHTML = '';

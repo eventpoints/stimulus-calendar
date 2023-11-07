@@ -10,7 +10,7 @@
 
         <script type="module" defer>
             import {Application} from '@hotwired/stimulus'
-            import Calendar from './dist/stimulus-calendar.js'
+            import Calendar from './src/stimulus-calendar.js'
 
             const app = Application.start()
             app.register('calendar', Calendar)
@@ -19,7 +19,7 @@
 
     <body>
         <div data-controller="calendar">
-            <input type="datetime" data-calendar-target="dateInput" value="1992-10-15 21:00"/>
+            <input type="text" data-calendar-target="dateInput"/>
         </div>
     </body>
 </html>

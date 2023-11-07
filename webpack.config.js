@@ -1,13 +1,21 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/stimulus-calendar.js',  // Entry point for your controller
+    entry: './src/stimulus-calendar.js',
     output: {
-        filename: 'stimulus-calendar.mjs', // Name of the bundled ES module file
-        path: path.resolve(__dirname, 'dist'), // Output directory
+        filename: 'stimulus-calendar.mjs',
+        path: path.resolve(__dirname, 'dist'),
         library: {
             type: 'module',
         },
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader', 'postcss-loader'],
+            },
+        ],
     },
     experiments: {
         outputModule: true,
