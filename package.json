@@ -1,6 +1,6 @@
 {
   "name": "stimulus-calendar",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "description": "A Stimulus controller to allow date and time input.",
   "keywords": [
     "stimulus",
