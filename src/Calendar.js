@@ -44,39 +44,53 @@ export class Calendar {
     }
 
     days() {
-        let selectedDate = null
 
-        const date = DateTime.fromISO(this.currentDate);
+       let date = this.selectedDate ?? this.currentDate
+        const datetime = DateTime.fromISO(date);
 
-        const firstDay = date.startOf('month');
-        const lastDay = date.endOf('month');
+        // Calculate the first day of the month and the last day of the month
+        const firstDay = datetime.startOf('month');
+        const lastDay = datetime.endOf('month');
+
         const days = [];
 
-        let selectedDateIterator = firstDay.minus({ days: 0 });
+        // Calculate the offset to align the first day with the correct day of the week
+        const offset = firstDay.weekday - 1; // 1 for Monday, 7 for Sunday
 
-        while (selectedDateIterator <= lastDay || days.length < 30) {
+        // Add the offset days
+        for (let i = 1; i <= offset; i++) {
             days.push({
-                day: selectedDateIterator.day,
-                iso: selectedDateIterator.toISO(),
+                isDayOffset: true
             });
-            selectedDateIterator = selectedDateIterator.plus({ days: 1 });
+        }
+
+        // Add the days of the month
+        for (let i = 1; i <= lastDay.day; i++) {
+            days.push({
+                day: i,
+                iso: firstDay.set({ day: i }).toISO(),
+            });
         }
 
         return days;
     }
 
-    calculateDays() {
-        const selectedDate = DateTime.fromObject({
-            year: this.selectedDate.year,
-            month: this.selectedDate.month,
-            day: this.selectedDate.day,
-            hour: this.selectedDate.hour,
-            minute: this.selectedDate.minute
-        });
-        this.selectedDate = selectedDate;
-        this.currentDate = selectedDate;
 
-        const newDays = this.days();
-        return newDays;
+
+    calculateDays() {
+        if(this.selectedDate) {
+            const selectedDate = DateTime.fromObject({
+                year: this.selectedDate.year,
+                month: this.selectedDate.month,
+                day: this.selectedDate.day,
+                hour: this.selectedDate.hour,
+                minute: this.selectedDate.minute
+            });
+
+        }else{
+            this.selectedDate = DateTime.local();
+        }
+
+        return this.days();
     }
 }

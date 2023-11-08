@@ -1,7 +1,6 @@
 import {Controller} from '@hotwired/stimulus';
 import {Calendar} from './Calendar.js';
 import {DateTime} from 'luxon';
-
 import './main.css'
 export default class extends Controller {
     static targets = [
@@ -29,6 +28,11 @@ export default class extends Controller {
 
     initialize() {
         super.initialize();
+
+        if(this.themeValue === ''){
+            this.themeValue = 'default'
+        }
+
         const themes = ['light', 'default', 'dark'];
         if (themes.includes(this.themeValue)) {
             const themeClass = `${this.themeValue}_sc_theme`;
@@ -38,6 +42,8 @@ export default class extends Controller {
 
 
     connect() {
+        console.log('THEME: ', this.themeValue)
+
         this.dateInputTarget.setAttribute('data-action', 'focus->calendar#open')
         this.isDisabled = this.isDisabledValue
         this.renderBackdrop();
@@ -50,10 +56,11 @@ export default class extends Controller {
         this.inputDate = this.dateInputTarget.getAttribute('value')
         if (this.inputDate) {
             this.calendar.selectedDate = DateTime.fromSQL(this.inputDate)
+
         }
 
-
-        await this.renderCalendarDays();
+        let days = this.calendar.calculateDays();
+        await this.renderCalendarDays(days);
         await this.renderCalendarYears();
         await this.renderCalendarMonths();
         await this.renderHourOptions();
@@ -93,7 +100,8 @@ export default class extends Controller {
         });
 
         await this.renderCalendarYears();
-        await this.renderCalendarDays();
+        const newDays = this.calendar.calculateDays();
+        await this.renderCalendarDays(newDays);
         this.updateOutput();
     }
 
@@ -118,7 +126,8 @@ export default class extends Controller {
 
 
         await this.renderCalendarMonths();
-        await this.renderCalendarDays();
+        const newDays = this.calendar.calculateDays();
+        await this.renderCalendarDays(newDays);
         this.updateOutput();
     }
 
@@ -166,7 +175,6 @@ export default class extends Controller {
         });
 
         await this.renderHourOptions();
-
         this.updateOutput();
     }
 
@@ -203,7 +211,6 @@ export default class extends Controller {
         months.forEach(month => {
             const monthElement = document.createElement('div');
             monthElement.classList.add('_sc_month');
-
             monthElement.setAttribute('data-month', month.monthNumber);
             if (!this.isDisabled) {
                 monthElement.setAttribute('data-action', 'click->calendar#setMonth');
@@ -257,21 +264,28 @@ export default class extends Controller {
         this.daysTarget.innerHTML = '';
         days.forEach(day => {
             const dayElement = document.createElement('div');
-            if (!this.isDisabled) {
-                dayElement.setAttribute('data-action', 'click->calendar#setDay');
+
+            if(day.isDayOffset){
+                dayElement.classList.add('_sc_day_offset');
             }
-            dayElement.setAttribute('data-day', day.day);
-            dayElement.setAttribute('data-day-iso', day.iso);
+            else {
+                if (!this.isDisabled) {
+                    dayElement.setAttribute('data-action', 'click->calendar#setDay');
+                }
 
-            dayElement.classList.add('_sc_day');
-            dayElement.textContent = day.day;
+                dayElement.setAttribute('data-day', day.day);
+                dayElement.setAttribute('data-day-iso', day.iso);
 
-            if (this.calendar.currentDate.day === DateTime.fromISO(day.iso).day) {
-                dayElement.classList.add('_sc_current_date');
-            }
+                dayElement.classList.add('_sc_day');
+                dayElement.textContent = day.day;
 
-            if (this.calendar.selectedDate instanceof DateTime && this.calendar.selectedDate.day === DateTime.fromISO(day.iso).day) {
-                dayElement.classList.add('_sc_selected_date');
+                if (this.calendar.currentDate.toLocaleString() === DateTime.fromISO(day.iso).toLocaleString()) {
+                    dayElement.classList.add('_sc_current_date');
+                }
+
+                if (this.calendar.selectedDate instanceof DateTime && this.calendar.selectedDate.day === DateTime.fromISO(day.iso).day) {
+                    dayElement.classList.add('_sc_selected_date');
+                }
             }
 
             this.daysTarget.appendChild(dayElement);
@@ -394,6 +408,18 @@ export default class extends Controller {
         this.element.appendChild(backdropElement);
     }
 
+
+
+    generateDaysOfWeek() {
+        const dayAbbreviations = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+        const daysOfWeek = [];
+        dayAbbreviations.forEach(abbreviation => {
+            daysOfWeek.push({
+                day: abbreviation,
+            });
+        });
+        this.daysOfWeek = daysOfWeek;
+    }
     renderCalendar() {
         const calendarElement = document.createElement('div');
         calendarElement.classList.add('_sc_calendar');
@@ -428,11 +454,24 @@ export default class extends Controller {
         days.classList.add('_sc_days');
         days.setAttribute('data-calendar-target', 'days');
 
+        this.generateDaysOfWeek();
+
+        const daysOfWeek = document.createElement('div');
+        daysOfWeek.classList.add('_sc_days_of_week');
+        this.daysOfWeek.forEach(dayOfWeek => {
+            const dayOfWeekElement = document.createElement('div');
+            dayOfWeekElement.classList.add('_sc_day_of_week');
+            dayOfWeekElement.setAttribute('data-day-of-week-target', 'dayOfWeek');
+            dayOfWeekElement.textContent = dayOfWeek.day;
+            daysOfWeek.appendChild(dayOfWeekElement);
+        });
+
         timePicker.appendChild(hours);
         timePicker.appendChild(minutes);
 
         dateContainer.appendChild(years);
         dateContainer.appendChild(months);
+        dateContainer.appendChild(daysOfWeek);
         dateContainer.appendChild(days);
 
         calendarTimeRow.appendChild(timePicker);
@@ -442,4 +481,5 @@ export default class extends Controller {
 
         this.element.appendChild(calendarElement);
     }
+
 }

@@ -7,7 +7,7 @@ body{
 
 
 ._sc_backdrop{
-    z-index: 250;
+    z-index: 2500;
     display: none;
     background-color: rgba(0,0,0,0.25);
     width: 100%;
@@ -18,8 +18,6 @@ body{
     top: 0;
     bottom: 0;
 }
-
-
 
 
 ._sc_years::-webkit-scrollbar, ._sc_months::-webkit-scrollbar, ._sc_hours::-webkit-scrollbar, ._sc_minutes::-webkit-scrollbar {
@@ -40,7 +38,7 @@ body{
 
 
 .default_sc_theme ._sc_calendar{
-    z-index: 500;
+    z-index: 5000;
     display: none;
     border-radius: 4px;
     overflow: hidden;
@@ -50,7 +48,7 @@ body{
     left: 0;
     right: 0;
     margin:0 auto;
-    background-color: rgba(255,255,255,1);
+    background-color: #fff;
     position: fixed;
     width: 50vh;
     font-family: 'Noto Sans', sans-serif;
@@ -72,17 +70,29 @@ body{
 }
 
 
-.default_sc_theme ._sc_days{
+.default_sc_theme ._sc_days,
+.default_sc_theme ._sc_days > ._sc_day_offset,
+.default_sc_theme ._sc_days_of_week{
     display: flex;
     justify-content: start;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.default_sc_theme ._sc_days > .default_sc_theme ._sc_day {
+.default_sc_theme ._sc_days > ._sc_day,
+.default_sc_theme ._sc_days > ._sc_day_offset,
+.default_sc_theme ._sc_days_of_week > ._sc_day_of_week
+{
     flex-basis: calc(100% / 7);
     box-sizing: border-box;
     text-align: center;
+}
+
+.default_sc_theme ._sc_day_of_week{
+    cursor: default;
+    padding: 0 10px;
+    text-align: center;
+    color: rgba(0,0,0,0.25);
 }
 
 
@@ -90,7 +100,6 @@ body{
     padding: 10px;
     text-align: center;
 }
-
 
 .default_sc_theme ._sc_current_hour, .default_sc_theme ._sc_selected_hour{
     border-radius: 4px 0 0 4px;
@@ -101,29 +110,27 @@ body{
 }
 
 .default_sc_theme ._sc_current_hour, .default_sc_theme ._sc_current_minute{
-    background-color: rgba(0,0,0,0.20);
+    background-color: rgba(255,255,255,0.05);
 }
 
 
 .default_sc_theme ._sc_current_year, .default_sc_theme ._sc_current_month, .default_sc_theme ._sc_current_date{
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0,0,0,0.02);
     border-radius: 4px;
 }
 
 .default_sc_theme ._sc_selected_minute, .default_sc_theme ._sc_selected_hour{
-    background-color: #333;
-    color: rgba(255,255,255,0.75);
+    background-color: rgba(255,255,255,0.15);
 }
 
 .default_sc_theme ._sc_selected_year,  .default_sc_theme ._sc_selected_month,  .default_sc_theme ._sc_selected_date{
-    background-color: #3d5afe;
-    color: rgba(255,255,255,1);
+    background-color: rgba(0,0,0,0.05);
     border-radius: 4px;
 }
 
 
 .default_sc_theme ._sc_day:hover{
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0,0,0,0.05);
     border-radius: 4px;
     cursor: pointer;
 }
@@ -139,7 +146,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: start;
-    background-color: #536dfe;
+    background-color: #3d5afe;
     color: #fff;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
@@ -165,21 +172,19 @@ body{
 }
 
 .default_sc_theme ._sc_hour:hover{
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.15);
     border-radius: 4px 0 0 4px;
     cursor: pointer;
-    color: rgba(0,0,0,0.7);
 }
 
 .default_sc_theme ._sc_minute:hover{
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255,255,255,0.15);
     border-radius: 0 4px 4px 0;
     cursor: pointer;
-    color: rgba(0,0,0,0.7);
 }
 
 .default_sc_theme ._sc_year:hover, .default_sc_theme ._sc_month:hover{
-    background-color: rgba(0,0,0,0.20);
+    background-color: rgba(0,0,0,0.05);
     border-radius: 4px;
     cursor: pointer;
 }
@@ -188,7 +193,7 @@ body{
 /*light theme*/
 
 .light_sc_theme ._sc_calendar{
-    z-index: 500;
+    z-index: 5000;
     display: none;
     border-radius: 4px;
     overflow: hidden;
@@ -198,7 +203,7 @@ body{
     left: 0;
     right: 0;
     margin:0 auto;
-    background-color: rgba(255,255,255,0.75);
+    background-color: rgba(255,255,255,0.85);
     position: fixed;
     width: 50vh;
     font-family: 'Noto Sans', sans-serif;
@@ -228,18 +233,37 @@ body{
     flex-wrap: wrap;
 }
 
-.light_sc_theme ._sc_days >  .light_sc_theme ._sc_day {
+
+.light_sc_theme ._sc_days,
+.light_sc_theme ._sc_days > ._sc_day_offset,
+.light_sc_theme ._sc_days_of_week{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.light_sc_theme ._sc_days > ._sc_day,
+.light_sc_theme ._sc_days > ._sc_day_offset,
+.light_sc_theme ._sc_days_of_week > ._sc_day_of_week
+{
     flex-basis: calc(100% / 7);
     box-sizing: border-box;
     text-align: center;
 }
 
-
 .light_sc_theme ._sc_day{
-    color: rgba(0,0,0, 1);
     padding: 10px;
     text-align: center;
 }
+
+.light_sc_theme ._sc_day_of_week{
+    cursor: default;
+    padding: 0 10px;
+    text-align: center;
+    color: rgba(0,0,0,0.25);
+}
+
 
 .light_sc_theme ._sc_day:hover{
     background-color: rgba(0,0,0,.05);
@@ -256,7 +280,7 @@ body{
 
 
 .light_sc_theme ._sc_selected_year,  .light_sc_theme ._sc_selected_month,  .light_sc_theme ._sc_selected_date, .light_sc_theme ._sc_selected_minute, .light_sc_theme ._sc_selected_hour{
-    background-color: rgba(0,0,0,.25);
+    background-color: rgba(0,0,0,.05);
     color: rgba(0,0,0, 1);
     border-radius: 4px;
 }
@@ -320,7 +344,7 @@ body{
 
 
 .dark_sc_theme ._sc_calendar{
-    z-index: 500;
+    z-index: 5000;
     display: none;
     border-radius: 4px;
     overflow: hidden;
@@ -330,7 +354,7 @@ body{
     left: 0;
     right: 0;
     margin:0 auto;
-    background-color: #3333;
+    background-color: rgba(0,0,0,0.45);
     position: fixed;
     width: 50vh;
     font-family: 'Noto Sans', sans-serif;
@@ -352,19 +376,29 @@ body{
     overflow-x: scroll;
 }
 
-
-
-.dark_sc_theme ._sc_days{
+.dark_sc_theme ._sc_days,
+.dark_sc_theme ._sc_days > ._sc_day_offset,
+.dark_sc_theme ._sc_days_of_week{
     display: flex;
     justify-content: start;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.dark_sc_theme ._sc_days > .dark_sc_theme ._sc_day {
+.dark_sc_theme ._sc_days > ._sc_day,
+.dark_sc_theme ._sc_days > ._sc_day_offset,
+.dark_sc_theme ._sc_days_of_week > ._sc_day_of_week
+{
     flex-basis: calc(100% / 7);
     box-sizing: border-box;
     text-align: center;
+}
+
+.dark_sc_theme ._sc_day_of_week{
+    cursor: default;
+    padding: 0 10px;
+    text-align: center;
+    color: rgba(255,255,255,0.35);
 }
 
 
@@ -383,13 +417,13 @@ body{
 
 
 .dark_sc_theme ._sc_current_year, .dark_sc_theme ._sc_current_month, .dark_sc_theme ._sc_current_date{
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0,0,0,0.15);
     border-radius: 4px;
 }
 
 
 .dark_sc_theme ._sc_selected_year,  .dark_sc_theme ._sc_selected_month,  .dark_sc_theme ._sc_selected_date, .dark_sc_theme ._sc_selected_minute, .dark_sc_theme ._sc_selected_hour{
-    background-color: rgba(0,0,0,0.65);
+    background-color: rgba(0,0,0,0.35);
     color: rgba(255,255,255,1);;
     border-radius: 4px;
 }
